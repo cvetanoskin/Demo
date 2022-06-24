@@ -1,9 +1,8 @@
-package com.example.demo.Exercises.controllers;
+package com.example.demo.Exercises.controller;
 
-import com.example.demo.Exercises.services.CandyCrushService;
+import com.example.demo.Exercises.service.CandyCrushService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 

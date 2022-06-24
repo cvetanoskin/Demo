@@ -1,7 +1,7 @@
-package com.example.demo.Exercises.services;
+package com.example.demo.Exercises.service;
 
-import com.example.demo.Exercises.domains.CandyCrush;
-import com.example.demo.Exercises.repositories.CandyCrushRepository;
+import com.example.demo.Exercises.domain.CandyCrush;
+import com.example.demo.Exercises.repository.CandyCrushRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

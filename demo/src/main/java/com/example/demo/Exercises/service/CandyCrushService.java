@@ -1,4 +1,4 @@
-package com.example.demo.Exercises.services;
+package com.example.demo.Exercises.service;
 import java.util.List;
 
 public interface CandyCrushService {
