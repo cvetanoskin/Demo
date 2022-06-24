@@ -1,6 +1,5 @@
 package com.example.demo.Exercises.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ public class VendingMachine {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private Integer moneyInserted;
+    private Integer amountInserted;
 
     private Integer change;
 
