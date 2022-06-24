@@ -9,13 +9,15 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class CandyCrush {
+public class Product {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private String inputSequence;
+    private String name;
 
-    private String outputSequence;
+    private String code;
+
+    private Integer number;
 }
