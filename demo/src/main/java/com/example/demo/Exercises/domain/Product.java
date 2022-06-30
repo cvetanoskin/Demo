@@ -2,10 +2,7 @@ package com.example.demo.Exercises.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -20,4 +17,8 @@ public class Product {
     private String code;
 
     private Integer number;
+
+    @ManyToOne
+    @JoinColumn(name = "vending_machine_id")
+    private VendingMachine vendingMachine;
 }

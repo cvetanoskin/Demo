@@ -13,10 +13,12 @@ public class VendingMachine {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "amount_inserted")
     private Integer amountInserted;
 
-    private Integer change;
+    @Column(name = "change_returned")
+    private Integer changeReturned;
 
-    @OneToMany
+    @OneToMany(mappedBy = "vendingMachine")
     private List<Product> products;
 }
