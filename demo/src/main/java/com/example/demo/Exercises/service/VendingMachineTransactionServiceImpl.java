@@ -1,8 +1,10 @@
 package com.example.demo.Exercises.service;
 
 import com.example.demo.Exercises.domain.Product;
+import com.example.demo.Exercises.domain.VendingMachine;
 import com.example.demo.Exercises.domain.VendingMachineTransaction;
 import com.example.demo.Exercises.repository.ProductRepository;
+import com.example.demo.Exercises.repository.VendingMachineRepository;
 import com.example.demo.Exercises.repository.VendingMachineTransactionRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +17,20 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
 
     private static final List<Integer> ACCEPTED_COINS = Arrays.asList(1, 5, 10, 25, 50);
     private static final List<Integer> ACCEPTED_NOTES = Arrays.asList(1, 2);
+    private static final int TO_CENTS = 100;
 
+    private VendingMachineRepository vendingMachineRepository;
     private VendingMachineTransactionRepository vendingMachineTransactionRepository;
     private ProductRepository productRepository;
 
-    public VendingMachineTransactionServiceImpl(VendingMachineTransactionRepository vendingMachineTransactionRepository, ProductRepository productRepository) {
+    public VendingMachineTransactionServiceImpl(VendingMachineRepository vendingMachineRepository, VendingMachineTransactionRepository vendingMachineTransactionRepository, ProductRepository productRepository) {
+        this.vendingMachineRepository = vendingMachineRepository;
         this.vendingMachineTransactionRepository = vendingMachineTransactionRepository;
         this.productRepository = productRepository;
     }
 
     @Override
-    public String insertAmount(int amount, boolean areCents) {
+    public Long insertAmount(int amount, boolean areCents) {
 
         boolean isValidAmountInput = areCents ? ACCEPTED_COINS.contains(amount) : ACCEPTED_NOTES.contains(amount);
         if (!isValidAmountInput) {
@@ -33,29 +38,9 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
         }
 
         VendingMachineTransaction vendingMachineTransaction = new VendingMachineTransaction();
-        vendingMachineTransaction.setAmountInserted(50);
-        vendingMachineTransaction.setChangeReturned(0);
+        vendingMachineTransaction.setAmountInserted(areCents ? amount : amount * TO_CENTS);
         vendingMachineTransactionRepository.save(vendingMachineTransaction);
 
-        Product product = new Product();
-        product.setName("first product");
-        product.setCode("FIRST_PRODUCT");
-        product.setNumber(1);
-        product.setVendingMachineTransaction(vendingMachineTransaction);
-
-        Product product2 = new Product();
-        product2.setName("second product");
-        product2.setCode("SECOND_PRODUCT");
-        product2.setNumber(2);
-        product2.setVendingMachineTransaction(vendingMachineTransaction);
-
-        List<Product> products = new ArrayList<>();
-        products.add(product);
-        products.add(product2);
-        vendingMachineTransaction.setProducts(Arrays.asList(product, product2));
-
-        productRepository.saveAll(products);
-
-        return "Inserted amount: " + amount + " " + (areCents ? "cent" : "dollar") + (amount > 1 ? "s": "");
+        return vendingMachineTransaction.getId();
     }
 }

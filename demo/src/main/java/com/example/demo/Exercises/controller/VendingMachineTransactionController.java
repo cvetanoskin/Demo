@@ -14,7 +14,7 @@ public class VendingMachineTransactionController {
     }
 
     @PostMapping("/insertamount")
-    public String insertAmount(@RequestParam int amount, @RequestParam boolean areCents) {
+    public Long insertAmount(@RequestParam int amount, @RequestParam boolean areCents) {
         return vendingMachineTransactionService.insertAmount(amount, areCents);
     }
 }

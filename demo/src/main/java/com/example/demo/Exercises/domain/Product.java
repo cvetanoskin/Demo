@@ -17,8 +17,4 @@ public class Product {
     private String code;
 
     private Integer number;
-
-    @ManyToOne
-    @JoinColumn(name = "vending_machine_transaction_id")
-    private VendingMachineTransaction vendingMachineTransaction;
 }

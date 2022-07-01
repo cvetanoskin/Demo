@@ -19,6 +19,7 @@ public class VendingMachineTransaction {
     @Column(name = "change_returned")
     private Integer changeReturned;
 
-    @OneToMany(mappedBy = "vendingMachineTransaction")
+    @OneToMany
     private List<Product> products;
+
 }
