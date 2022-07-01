@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class VendingMachine {
+public class VendingMachineTransaction {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,6 +19,6 @@ public class VendingMachine {
     @Column(name = "change_returned")
     private Integer changeReturned;
 
-    @OneToMany(mappedBy = "vendingMachine")
+    @OneToMany(mappedBy = "vendingMachineTransaction")
     private List<Product> products;
 }

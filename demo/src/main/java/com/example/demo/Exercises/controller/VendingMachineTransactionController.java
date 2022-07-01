@@ -1,0 +1,20 @@
+package com.example.demo.Exercises.controller;
+
+import com.example.demo.Exercises.service.VendingMachineTransactionService;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+public class VendingMachineTransactionController {
+
+    private VendingMachineTransactionService vendingMachineTransactionService;
+
+    public VendingMachineTransactionController(VendingMachineTransactionService vendingMachineTransactionService) {
+        this.vendingMachineTransactionService = vendingMachineTransactionService;
+    }
+
+    @PostMapping("/insertamount")
+    public String insertAmount(@RequestParam int amount, @RequestParam boolean areCents) {
+        return vendingMachineTransactionService.insertAmount(amount, areCents);
+    }
+}

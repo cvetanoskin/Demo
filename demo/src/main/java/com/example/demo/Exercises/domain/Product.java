@@ -19,6 +19,6 @@ public class Product {
     private Integer number;
 
     @ManyToOne
-    @JoinColumn(name = "vending_machine_id")
-    private VendingMachine vendingMachine;
+    @JoinColumn(name = "vending_machine_transaction_id")
+    private VendingMachineTransaction vendingMachineTransaction;
 }
