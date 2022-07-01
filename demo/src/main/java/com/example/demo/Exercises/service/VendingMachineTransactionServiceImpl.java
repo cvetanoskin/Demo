@@ -3,7 +3,6 @@ package com.example.demo.Exercises.service;
 import com.example.demo.Exercises.domain.Product;
 import com.example.demo.Exercises.domain.VendingMachineTransaction;
 import com.example.demo.Exercises.repository.ProductRepository;
-import com.example.demo.Exercises.repository.VendingMachineRepository;
 import com.example.demo.Exercises.repository.VendingMachineTransactionRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,12 +17,10 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
     private static final List<Integer> ACCEPTED_NOTES = Arrays.asList(1, 2);
     private static final int TO_CENTS = 100;
 
-    private VendingMachineRepository vendingMachineRepository;
     private VendingMachineTransactionRepository vendingMachineTransactionRepository;
     private ProductRepository productRepository;
 
-    public VendingMachineTransactionServiceImpl(VendingMachineRepository vendingMachineRepository, VendingMachineTransactionRepository vendingMachineTransactionRepository, ProductRepository productRepository) {
-        this.vendingMachineRepository = vendingMachineRepository;
+    public VendingMachineTransactionServiceImpl(VendingMachineTransactionRepository vendingMachineTransactionRepository, ProductRepository productRepository) {
         this.vendingMachineTransactionRepository = vendingMachineTransactionRepository;
         this.productRepository = productRepository;
     }
