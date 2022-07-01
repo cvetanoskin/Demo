@@ -17,8 +17,8 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
     private static final List<Integer> ACCEPTED_NOTES = Arrays.asList(1, 2);
     private static final int TO_CENTS = 100;
 
-    private VendingMachineTransactionRepository vendingMachineTransactionRepository;
-    private ProductRepository productRepository;
+    private final VendingMachineTransactionRepository vendingMachineTransactionRepository;
+    private final ProductRepository productRepository;
 
     public VendingMachineTransactionServiceImpl(VendingMachineTransactionRepository vendingMachineTransactionRepository, ProductRepository productRepository) {
         this.vendingMachineTransactionRepository = vendingMachineTransactionRepository;
@@ -55,6 +55,7 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
         }
 
         vendingMachineTransaction.setChangeReturned(vendingMachineTransaction.getAmountInserted() - product.getPrice());
+        //todo: Implement Dtos and mappers for Product and VendingMachineTransaction
 
         return "Product returned: " + product.getName() + ". Change returned: " + vendingMachineTransaction.getChangeReturned();
     }
