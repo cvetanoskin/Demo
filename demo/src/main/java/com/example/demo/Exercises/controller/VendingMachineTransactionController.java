@@ -17,4 +17,9 @@ public class VendingMachineTransactionController {
     public Long insertAmount(@RequestParam int amount, @RequestParam boolean areCents) {
         return vendingMachineTransactionService.insertAmount(amount, areCents);
     }
+
+    @GetMapping("/buyproduct")
+    public String buyProduct(@RequestParam Long transactionId, @RequestParam int productNumber) {
+        return vendingMachineTransactionService.buyProduct(transactionId, productNumber);
+    }
 }

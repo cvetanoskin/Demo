@@ -1,14 +1,13 @@
 package com.example.demo.Exercises.service;
 
 import com.example.demo.Exercises.domain.Product;
-import com.example.demo.Exercises.domain.VendingMachine;
 import com.example.demo.Exercises.domain.VendingMachineTransaction;
 import com.example.demo.Exercises.repository.ProductRepository;
 import com.example.demo.Exercises.repository.VendingMachineRepository;
 import com.example.demo.Exercises.repository.VendingMachineTransactionRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
     @Override
     public Long insertAmount(int amount, boolean areCents) {
 
-        boolean isValidAmountInput = areCents ? ACCEPTED_COINS.contains(amount) : ACCEPTED_NOTES.contains(amount);
+        boolean isValidAmountInput = areCents ? ACCEPTED_COINS.contains(amount) : ACCEPTED_NOTES.contains(amount) && amount > 0;
         if (!isValidAmountInput) {
             throw new NumberFormatException("Invalid amount inserted");
         }
@@ -42,5 +41,24 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
         vendingMachineTransactionRepository.save(vendingMachineTransaction);
 
         return vendingMachineTransaction.getId();
+    }
+
+    @Override
+    public String buyProduct(Long transactionId, int productNumber) {
+        VendingMachineTransaction vendingMachineTransaction = vendingMachineTransactionRepository
+                .findById(transactionId)
+                .orElseThrow(ResourceNotFoundException::new);
+
+        Product product = productRepository
+                .findByNumber(productNumber)
+                .orElseThrow(ResourceNotFoundException::new);
+
+        if (vendingMachineTransaction.getAmountInserted() < product.getPrice()) {
+            System.err.println("Amount inserted is too low");
+        }
+
+        vendingMachineTransaction.setChangeReturned(vendingMachineTransaction.getAmountInserted() - product.getPrice());
+
+        return "Product returned: " + product.getName() + ". Change returned: " + vendingMachineTransaction.getChangeReturned();
     }
 }

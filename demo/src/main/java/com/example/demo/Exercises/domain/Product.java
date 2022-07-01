@@ -17,4 +17,6 @@ public class Product {
     private String code;
 
     private Integer number;
+
+    private Integer price;
 }
