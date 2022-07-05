@@ -51,7 +51,7 @@ public class VendingMachineTransactionServiceImpl implements VendingMachineTrans
                 .orElseThrow(ResourceNotFoundException::new);
 
         if (vendingMachineTransaction.getAmountInserted() < product.getPrice()) {
-            System.err.println("Amount inserted is too low");
+            throw new IllegalArgumentException("Amount inserted is too low. If you wish to proceed, please insert more money");
         }
 
         vendingMachineTransaction.setChangeReturned(vendingMachineTransaction.getAmountInserted() - product.getPrice());
